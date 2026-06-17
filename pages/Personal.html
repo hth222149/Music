@@ -49,20 +49,11 @@
 
         // 初始化全站「多用戶資料庫」(gemini)
         if (!localStorage.getItem('all_users_orders')) {
-            const defaultOrders = [
-                { userEmail: "123@gmail.com", id: "ORD-20260601", date: "2026-06-01", item: "Aura Pro 耳罩式耳機", price: 8900, qty: 1 },
-                { userEmail: "123@gmail.com", id: "ORD-20260515", date: "2026-05-15", item: "Aura Sound 藍牙喇叭 Mini", price: 3500, qty: 2 },
-                { userEmail: "test@gmail.com", id: "ORD-20260610", date: "2026-06-10", item: "家庭劇院組合 X1", price: 24900, qty: 1 }
-            ];
-            localStorage.setItem('all_users_orders', JSON.stringify(defaultOrders));
+            localStorage.setItem('all_users_orders', JSON.stringify([]));
         }
 
         if (!localStorage.getItem('all_users_reviews')) {
-            const defaultReviews = [
-                { userEmail: "123@gmail.com", date: "2026-06-03", item: "Aura Pro 耳罩式耳機", rating: 5, comment: "音質非常細膩，降噪效果驚人，戴起來很舒服！" },
-                { userEmail: "test@gmail.com", date: "2026-06-12", item: "家庭劇院組合 X1", rating: 5, comment: "看電影震憾力十足，身歷其境！" }
-            ];
-            localStorage.setItem('all_users_reviews', JSON.stringify(defaultReviews));
+            localStorage.setItem('all_users_reviews', JSON.stringify([]));
         }
 
         // 單一訂單多商品
