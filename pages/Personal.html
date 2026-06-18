@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Sound | 會員介面</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/user.css">
+    <script src="../assets/js/auth.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        Auth.updateNavbar('../');
+        
+        const user = Auth.currentUser();
+        if (!user) {
+            alert('請先登入！');
+            window.location.href = '../pages/Login.html';
+            return;
+        }
+
+        const userEmail = user.email.toLowerCase().trim();
+
+        // 填入會員基本資料 
+        document.querySelector('.user-name').textContent = user.name || "Aura 會員";
+        const userRows = document.querySelectorAll('.user-data-container .user-row span:last-child');
+        userRows[0].textContent = "USR-" + user.email.split('@')[0].toUpperCase();
+        userRows[1].textContent = user.email;
+
+        // 密碼顯示/隱藏
+        const pwdBtn = document.getElementById('show-pwd-btn');
+        if (pwdBtn) {
+            pwdBtn.addEventListener('click', function() {
+                const pwdDisplay = document.getElementById('display-pwd');
+                if (pwdDisplay.textContent !== "********") {
+                    pwdDisplay.textContent = "********";
+                    this.textContent = "顯示密碼";
+                } else {
+                    const input = prompt("請輸入您的密碼以進行驗證：");
+                    if (input === user.password) {
+                        pwdDisplay.textContent = user.password;
+                        this.textContent = "隱藏密碼";
+                    } else if (input !== null) {
+                        alert("密碼錯誤！");
+                    }
+                }
+            });
+        }
+
+        // 初始化全站「多用戶資料庫」(gemini)
+        
+        if (!localStorage.getItem('all_users_orders')) {
+            localStorage.setItem('all_users_orders', JSON.stringify([]));
+        }
+
+        if (!localStorage.getItem('all_users_reviews')) {
+            localStorage.setItem('all_users_reviews', JSON.stringify([]));
+        }
+
+        // 單一訂單多商品
+        function renderAllRecords() {
+            const allOrders = JSON.parse(localStorage.getItem('all_users_orders')) || [];
+            const allReviews = JSON.parse(localStorage.getItem('all_users_reviews')) || [];
+            const currentUserOrders = allOrders.filter(order => order.userEmail.toLowerCase().trim() === userEmail);
+            const currentUserReviews = allReviews.filter(review => review.userEmail.toLowerCase().trim() === userEmail);
+            const productSelect = document.getElementById('review-product-select');
+
+            if (productSelect) {
+                let purchasedItems = [];
+
+                currentUserOrders.forEach(order => {
+                    if (order.items && Array.isArray(order.items)) {
+                        order.items.forEach(item => purchasedItems.push(item.name));
+                    } 
+                    else if (order.item) {
+                        purchasedItems.push(order.item);
+                    }
+                });
+
+                const uniqueItems = [...new Set(purchasedItems)];
+
+                if (uniqueItems.length === 0) {
+                    productSelect.innerHTML = '<option value="">── 您尚無可評論的商品 ──</option>';
+                } else {
+             
+                    let selectHtml = '<option value="">請選擇要評論的商品...</option>';
+                    uniqueItems.forEach(item => {
+                        selectHtml += `<option value="${item}">${item}</option>`;
+                    });
+                    productSelect.innerHTML = selectHtml;
+                }
+            }
+
+            const orderContainer = document.getElementById('order-record-list');
+            if (currentUserOrders.length === 0) {
+                orderContainer.innerHTML = '<div class="empty-msg">目前尚無消費紀錄</div>';
+            } else {
+                let orderHtml = '';
+                currentUserOrders.forEach(order => {
+                    let itemsListHtml = '';
+                    if (order.items && Array.isArray(order.items)) {
+                        order.items.forEach(item => {
+                            itemsListHtml += `
+                                <div class="consumption-row" style="margin-bottom: 4px; background: rgba(0,0,0,0.02); padding: 6px 10px; border-radius: 6px;">
+                                    <span>• ${item.name} × ${item.qty}</span>
+                                    <span>NT$ ${(item.price * item.qty).toLocaleString()}</span>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        itemsListHtml = `
+                            <div class="consumption-row">
+                                <span>${order.item} × ${order.qty}</span>
+                                <span>NT$ ${(order.price * order.qty).toLocaleString()}</span>
+                            </div>
+                        `;
+                    }
+
+                    let finalTotal = order.totalAmount ? order.totalAmount : (order.price * order.qty);
+
+                    orderHtml += `
+                        <div class="consumption-box" style="margin-bottom: 20px;">
+                            <span class="consumption-bar">
+                                <span><i class="fas fa-calendar-alt"></i> ${order.date}</span> 
+                                <span class="order-id" style="font-weight:bold; color:#1a1a1a;">${order.id}</span>
+                            </span>
+                            <div style="margin: 10px 0; padding-left: 5px;">
+                                <div style="font-size: 13px; color: #718096; margin-bottom: 6px;">購買清單：</div>
+                                ${itemsListHtml}
+                            </div>
+                            <div class="consumption-row total-row-style" style="border-top: 1px dashed #cbd5e1; padding-top: 10px; margin-top: 10px; font-weight:700;">
+                                <span>訂單總金額：</span>
+                                <span class="highlight-total" style="font-size: 16px; color:#1a1a1a;">NT$ ${finalTotal.toLocaleString()}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                orderContainer.innerHTML = orderHtml;
+            }
+
+            const reviewContainer = document.getElementById('review-record-list');
+            if (currentUserReviews.length === 0) {
+                reviewContainer.innerHTML = '<div class="empty-msg">目前尚無評論紀錄</div>';
+            } else {
+                let reviewHtml = '';
+                currentUserReviews.forEach((rev, index) => {
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="fa-star ${i <= rev.rating ? 'fas' : 'far'}" style="color: #f1c40f; font-size: 13px;"></i>`;
+                    }
+                    
+                    reviewHtml += `
+                        <div class="review-box" style="position: relative;">
+                            <div class="review-header">
+                                <span class="review-product"><i class="fas fa-box-open"></i> ${rev.item}</span>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span class="review-date">${rev.date}</span>
+                                    <button class="btn-delete-review" data-id="${rev.date}-${index}" style="background: none; border: none; color: #e53e3e; cursor: pointer; padding: 2px 6px; font-size: 14px; transition: color 0.2s;" title="刪除評論">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <span>給予評分：</span>
+                                <span>${stars}</span>
+                            </div>
+                            <div class="review-comment">
+                                <span>評論內容：</span>
+                                <p>"${rev.comment}"</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                reviewContainer.innerHTML = reviewHtml;
+                const deleteBtns = reviewContainer.querySelectorAll('.btn-delete-review');
+                deleteBtns.forEach((btn, clickIdx) => {
+                    btn.addEventListener('click', function() {
+                        if (confirm('確定要刪除這則評論嗎？此操作無法復原。')) {
+                            let allReviews = JSON.parse(localStorage.getItem('all_users_reviews')) || [];
+                            const targetReview = currentUserReviews[clickIdx];
+                            
+                            const realIndex = allReviews.findIndex(rev => 
+                                rev.userEmail.toLowerCase().trim() === userEmail &&
+                                rev.date === targetReview.date &&
+                                rev.item === targetReview.item &&
+                                rev.comment === targetReview.comment
+                            );
+
+                            if (realIndex !== -1) {
+                                allReviews.splice(realIndex, 1);
+                                localStorage.setItem('all_users_reviews', JSON.stringify(allReviews));
+                                alert('評論已成功刪除！');
+                                renderAllRecords();
+                            } else {
+                                alert('刪除失敗，找不到該筆評論資料。');
+                            }
+                        }
+                    });
+                });
+            }
+        }
+
+        const stars = document.querySelectorAll('.star-rating-input i');
+        let selectedRating = 5;
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                selectedRating = parseInt(this.getAttribute('data-value'));
+                stars.forEach(s => {
+                    const v = parseInt(s.getAttribute('data-value'));
+                    if (v <= selectedRating) {
+                        s.className = 'fas fa-star';
+                    } else {
+                        s.className = 'far fa-star';
+                    }
+                });
+            });
+        });
+
+        const addReviewForm = document.getElementById('add-review-form');
+        if (addReviewForm) {
+            addReviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const productSelect = document.getElementById('review-product-select').value;
+                const commentText = document.getElementById('review-comment-input').value.trim();
+
+                if (!productSelect) {
+                    alert('請選擇要評論的商品！');
+                    return;
+                }
+                if (!commentText) {
+                    alert('請輸入評論內容！');
+                    return;
+                }
+
+                let allReviews = JSON.parse(localStorage.getItem('all_users_reviews')) || [];
+                const today = new Date().toISOString().split('T')[0];
+
+                allReviews.unshift({
+                    userEmail: userEmail,
+                    date: today,
+                    item: productSelect,
+                    rating: selectedRating,
+                    comment: commentText
+                });
+
+                localStorage.setItem('all_users_reviews', JSON.stringify(allReviews));
+                alert('評論發表成功！');
+
+                document.getElementById('review-comment-input').value = '';
+                selectedRating = 5;
+                stars.forEach(s => s.className = 'fas fa-star');
+
+                renderAllRecords();
+            });
+        }
+
+        renderAllRecords();
+    });
+    </script>
+</head>
+<body>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="../assets/videos/Bgvideo.mp4" type="video/mp4">
+
+    </video> 
+    
+    <header class="navbar">
+        <div class="logo"><a href="../index.html">AURA SOUND</a></div>
+        <nav class="nav-menus">
+            <ul class="main-menu">
+                <li><a href="../index.html">首頁</a></li>
+                <li class="has-dropdown">
+                    <a href="#" class="category-toggle">商品類別 <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="headphones.html"><i class="fas fa-headphones"></i> 耳罩式耳機</a></li>
+                        <li><a href="speaker.html"><i class="fas fa-volume-up"></i> 藍牙喇叭</a></li>
+                        <li><a href="hometheater.html"><i class="fas fa-tv"></i> 家庭劇院組合</a></li>
+                    </ul>
+                </li>
+                <li><a href="allproduct.html">所有商品</a></li>
+                <li><a href="../index.html#about">關於我們</a></li>
+                <li class="search-item">
+                    <form action="allproduct.html" method="GET" class="search-form">
+                        <input type="text" name="search" placeholder="搜尋耳機、喇叭..." autocomplete="off">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+                <li class="nav-member-li"><a href="Login.html"><i class="fas fa-user"></i> 登入 / 註冊</a></li>
+                <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="user-page-main">
+        <div class="user-container">
+            <div class="userimg-container">
+                <img src="../assets/img/userhead.jpg" alt="使用者頭像">
+            </div>
+
+            <div class="user-data-container">
+                <span class="user-name"></span>
+                <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid rgba(255,255,255,0.2);">
+                <div class="user-row">
+                    <span>使用者 ID：</span>
+                    <span>載入中...</span>
+                </div>
+                <div class="user-row">
+                    <span>Email：</span>
+                    <span>載入中...</span>
+                </div>
+                <div class="user-row">
+                    <span>密碼保護：</span>
+                    <span id="display-pwd">********</span>
+                </div>
+                <button class="show" id="show-pwd-btn" style="cursor: pointer;">顯示密碼</button>
+            </div>
+        </div>
+
+        <div class="records-layout-container">
+            
+            <div class="records-column">
+                <h3 class="panel-title"><i class="fas fa-receipt"></i> 歷史消費紀錄</h3>
+                <div class="consumption-record-container" id="order-record-list"></div>
+            </div>
+
+            <div class="records-column">
+                <h3 class="panel-title"><i class="fas fa-comment-alt"></i> 歷史評論與評分</h3>
+                
+                <form id="add-review-form" class="inline-review-form">
+                    <h4 style="margin: 0 0 12px 0; font-size: 14px; color: #2d3748;"><i class="fas fa-pen-nib"></i> 發表商品評價</h4>
+                    
+                    <select id="review-product-select" class="review-select"></select>
+
+                    <div class="star-rating-wrapper">
+                        <span>給予星等：</span>
+                        <div class="star-rating-input">
+                            <i class="fas fa-star" data-value="1"></i>
+                            <i class="fas fa-star" data-value="2"></i>
+                            <i class="fas fa-star" data-value="3"></i>
+                            <i class="fas fa-star" data-value="4"></i>
+                            <i class="fas fa-star" data-value="5"></i>
+                        </div>
+                    </div>
+
+                    <textarea id="review-comment-input" class="review-textarea" placeholder="請分享您的真實使用心得..." rows="2"></textarea>
+                    
+                    <button type="submit" class="btn-submit-review">送出評論</button>
+                </form>
+
+                <hr style="border: 0; border-top: 1px dashed #e2e8f0; margin: 20px 0;">
+
+                <div class="review-record-container" id="review-record-list"></div>
+            </div>
+
+        </div>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <h3 class="footer-logo">Aura Sound</h3>
+                <p class="brand-slogan">用最純淨的聲音，重塑你的聽覺宇宙。專注於頂級耳機與專業音響系統。</p>
+            </div>
+
+            <div class="footer-column links-col">
+                <h4>商品分類</h4>
+                <ul>
+                    <li><a href="headphones.html">耳罩式耳機</a></li>
+                    <li><a href="speaker.html">藍芽喇叭</a></li>
+                    <li><a href="hometheater.html">家庭劇院組合</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column contact-col">
+                <h4>聯絡我們</h4>
+                <p><i class="fas fa-clock"></i> 服務時間：Mon - Fri 09:00 - 18:00</p>
+                <p><i class="fas fa-envelope"></i> support@aurasound.com</p>
+                <p><i class="fas fa-phone"></i> 02-2345-6789</p>
+                <p><i class="fas fa-map-marker-alt"></i> 台北市信義區音響路 100 號</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Aura Sound Audio Co., Ltd. All Rights Reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">隱私權政策</a> | <a href="#">服務條款</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        (function syncCart() {
+            const cartKey = localStorage.getItem('auraCart') ? 'auraCart' : 'aura_cart';
+            const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+            const total = cart.reduce((sum, i) => sum + i.qty, 0);
+            document.querySelectorAll('.cart-count').forEach(el => el.textContent = total);
+        })();
+    </script>
+</body>
+</html>

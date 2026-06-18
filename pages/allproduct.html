@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Sound</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/products.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=1.2"> <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/products.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        Auth.updateNavbar('../');
+        Auth.updateCartCount();
+    });
+    </script>
+</head>
+<body>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="../assets/videos/Bgvideo.mp4" type="video/mp4">
+    </video>
+
+    <header class="navbar">
+        <div class="logo"><a href="../index.html">AURA SOUND</a></div>
+        <nav class="nav-menus">
+            <ul class="main-menu">
+                <li><a href="../index.html">首頁</a></li>
+                <li class="has-dropdown">
+                    <a href="#" class="category-toggle">商品類別 <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../pages/headphones.html"><i class="fas fa-headphones"></i> 耳罩式耳機</a></li>
+                        <li><a href="../pages/speaker.html"><i class="fas fa-volume-up"></i> 藍牙喇叭</a></li>
+                        <li><a href="../pages/hometheater.html"><i class="fas fa-tv"></i> 家庭劇院組合</a></li>
+                    </ul>
+                </li>
+                <li><a href="../pages/allproduct.html">所有商品</a></li>
+                <li><a href="../index.html#about">關於我們</a></li>
+                <li class="search-item">
+                    <form action="../pages/allproduct.html" method="GET" class="search-form">
+                        <input type="text" name="search" placeholder="搜尋耳機、喇叭..." autocomplete="off">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+                <li class="nav-member-li"><a href="../pages/Login.html"><i class="fas fa-user"></i> 登入 / 註冊</a></li>
+                <li><a href="../pages/cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <h2>所有商品/All products</h2>
+    </div>
+
+    <main class="main-content">
+
+        <aside class="sidebar">
+            <div class="filter-group">
+                <h3 class="filter-title">價格預算</h3>
+                <ul class="filter-list">
+                    <li>
+                        <label class="classification">
+                            <input type="checkbox" name="price" value="10000up">
+                            <span>NT$ 10,000 以上</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="classification">
+                            <input type="checkbox" name="price" value="5000~10000">
+                            <span>NT$ 5,000 - NT$ 10,000</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="classification">
+                            <input type="checkbox" name="price" value="under5000">
+                            <span>NT$ 5,000以下</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </aside> 
+
+        <div class="product-grid">
+
+            <div class="card" item-price="8800" item-brand="Bose" item-intro="經典的主動消噪技術，提供全天候的舒適佩戴體驗，具備絕佳的音質表現與強效續航力。" item-url="product_detail/BOSE QuietComfort.html" item-rating="4.2">
+                <img src="../assets/img/allproduct/headphone_img/BOSE QuietComfort.jpg">
+                <h3>BOSE QuietComfort</h3>
+                <p class="price">$8,800</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.2</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="15800" item-brand="Bose" item-intro="頂級旗艦款！搭載全新的沉浸式音效技術，更進階的消噪表現，帶來身歷其境的聆聽盛宴。" item-url="product_detail/Bose QuietComfort Ultra.html" item-rating="4.8">
+                <img src="../assets/img/allproduct/headphone_img/BOSE QuietComfort Ultra.jpg">
+                <h3>BOSE QuietComfort Ultra</h3>
+                <p class="price">$15,800</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.8</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="11990" item-brand="Sennheiser" item-intro="擁有長達 60 小時的超強續航力，結合聲學專家的頂級調音，給您無可挑剔的音樂細節。" item-url="product_detail/Senheiser Momentum 4 Wireless.html" item-rating="4.9">
+                <img src="../assets/img/allproduct/headphone_img/Senheiser MOMENTUM４Wireless.jpg">
+                <h3>Sennheiser Momentum 4 Wireless</h3>
+                <p class="price">$11,990</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.9</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="10490" item-brand="KEF" item-intro="由工業設計大師親自操刀，流線外型與流暢的高解析音質完美結合，彰顯不凡品味。" item-url="product_detail/KEF Mu7.html" item-rating="4.1">
+                <img src="../assets/img/allproduct/headphone_img/KEF Mu7.jpg">
+                <h3>KEF Mu7</h3>
+                <p class="price">$10,490</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.1</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="9400" item-brand="Sony" item-intro="市場上最強大的主動降噪耳機之一，極致輕量化設計與雙晶片處理，打造靜謐的聆聽空間。" item-url="product_detail/Sony WH-1000XM5.html" item-rating="5.0">
+                <img src="../assets/img/allproduct/headphone_img/Sony XM5.jpg">
+                <h3>Sony WH-1000XM5</h3>
+                <p class="price">$9,400</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="starnum">5.0</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="10900" item-brand="Marshall" item-intro="傳承 Marshall 經典搖滾外觀，擁有長達 70 小時的降噪續航力，重低音頻表現震撼。" item-url="product_detail/Marshall Monitor III ANC.html" item-rating="4.6">
+                <img src="../assets/img/allproduct/headphone_img/Marshall Monitor III A.N.C.jpg">
+                <h3>Marshall Monitor III A.N.C.</h3>
+                <p class="price">$10,900</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.6</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="11990" item-brand="Bowers & Wilkins (B&W)" item-intro="精緻的英倫美學工藝，全新升級的數位音訊處理，精準還原錄音室等級的純淨音質。" item-url="product_detail/BW Px7 S2e.html" item-rating="4.7">
+                <img src="../assets/img/allproduct/headphone_img/B&W Px7 S2e.jpg">
+                <h3>B&W Px7 S2e </h3>
+                <p class="price">$11,990</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.7</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="12499" item-brand="Beats" item-intro="支援空間音訊與動態頭部追蹤，全新升級的驅動單體，完美適配 Apple 與 Android 雙系統。" item-url="product_detail/Beats Studio Pro.html" item-rating="4.4">
+                <img src="../assets/img/allproduct/headphone_img/Beats Studio Pro.jpg">
+                <h3>Beats Studio Pro</h3>
+                <p class="price">$12,490</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.4</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="3790" item-brand="Sony" item-intro="高CP值首選！Sony 最輕巧的無線降噪耳罩式耳機，雙重雜訊感應器技術，享受無負擔的純粹音樂。" item-url="product_detail/Sony WH-CH720N.html" item-rating="4.0">
+                <img src="../assets/img/allproduct/headphone_img/Sony WH-CH720N.jpg">
+                <h3>Sony WH-CH720N</h3>
+                <p class="price">$3,790</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.0</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="3490" item-brand="Soundcore" item-intro="入門級降噪神機，榮獲高解析音質認證，具備強大消噪功能與舒適的記憶海綿耳罩。" item-url="product_detail/Soundcore Space One.html" item-rating="4.5">
+                <img src="../assets/img/allproduct/headphone_img/Soundcore Space One.jpg">
+                <h3>Soundcore Space One</h3>
+                <p class="price">$3,490</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.5</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="2450" item-brand="Audio-Technica" item-intro="錄音室專業監聽規格的藍牙版本，經典 40mm 大單體，提供最真實、不加修飾的純淨聲音。" item-url="product_detail/ATH-M20xBT.html" item-rating="4.3">
+                <img src="../assets/img/allproduct/headphone_img/ATH-M20xBT.jpg">
+                <h3>Audio-Technica ATH-M20xBT</h3>
+                <p class="price">$2,450</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.3</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="3190" item-brand="Edifier" item-intro="具備高達 -44dB 的深度主動降噪，金屬質感外觀，帶來平價卻不妥協的影音娛樂享受。" item-url="product_detail/Edifier ES850NB.html" item-rating="4.7">
+                <img src="../assets/img/allproduct/headphone_img/Edifier ES850NB.jpg">
+                <h3>Edifier ES850NB</h3>
+                <p class="price">$3,190</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.7</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="3690" item-brand="MAJORITY" item-intro="榮獲亞馬遜銷售榜首的進階版本，憑藉其優異的聲學工程設計，為空間有限的家庭環境帶來更具沉浸感的視聽饗宴。" item-url="product_detail/MAJORITY.html" item-rating="4.3">
+                <img src="../assets/img/allproduct/hometheater_img/MAJORITY.jpg">
+                <h3>MAJORITY 2.1 聲道家庭劇院藍牙 Soundbar Teton</h3>
+                <p class="price">$3,690</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.3</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="8746" item-brand="DIKE" item-intro="此套組定位為整合性極高的 KTV 娛樂與影音劇院解決方案，透過 Soundbar 聲霸與獨立主動式重低音的搭配，能一機滿足用戶在家庭劇院觀影與高水準卡拉 OK 娛樂的雙重核心需求。" item-url="product_detail/DIKE.html" item-rating="4.7">
+                <img src="../assets/img/allproduct/hometheater_img/DIKE.jpg">
+                <h3>DIKE 重低音家庭劇院 KTV 娛樂音響套組</h3>
+                <p class="price">$8,746</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.7</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="9999" item-brand="PROTON" item-intro="此為一套全方位的旗艦級家庭劇院解決方案，透過多聲道架構與隨附的專業無線麥克風，完整覆蓋視聽娛樂與高階歌唱需求。" item-url="product_detail/PROTON.html" item-rating="4.9">
+                <img src="../assets/img/allproduct/hometheater_img/PROTON.jpg">
+                <h3>PROTON 普騰 5.2.2 聲道聲霸家庭劇院組</h3>
+                <p class="price">$9,999</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.9</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="11800" item-brand="TDF" item-intro="針對多功能家庭娛樂需求所設計，不僅適用於高品質家庭劇院播放，亦完美對應卡拉 OK 歌唱需求，輕鬆滿足中大型空間的音壓與聲場需求。" item-url="product_detail/TDF.html" item-rating="4.1">
+                <img src="../assets/img/allproduct/hometheater_img/TDF PA602.jpg">
+                <h3>TDF PA-602 專業吊掛式歌唱喇叭</h3>
+                <p class="price">$11,800</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.1</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="18900" item-brand="Sony" item-intro="具備高達 1000W 震撼總輸出，搭配實體無線後環繞喇叭，打造電影院等級的 3D 全方位影音娛樂享受。" item-url="product_detail/Sony.html" item-rating="5.0">
+                <img src="../assets/img/allproduct/hometheater_img/Sony HT-S60.jpg">
+                <h3>Sony BRAVIA Theatre System 6</h3>
+                <p class="price">$18,900</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="starnum">5.0</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="3390" item-brand="Edifier" item-intro="採用優質木質箱體打造，打破傳統一體式喇叭的物理限制，以獨特角度配置雙中低音與雙絲膜高音單體，為您營造桌面上最震撼、純淨的立體聲平衡音場" item-url="product_detail/Edifier D12.html" item-rating="4.3">
+                <img src="../assets/img/allproduct/speaker_img/Edifier D12.jpg">            
+                <h3>Edifier D12 一體式立體聲喇叭</h3>
+                <p class="price">$3,390</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.3</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="4190" item-brand="Edifier" item-intro="全球熱銷的入門經典再升級！融合復古木紋美學與現代藍牙、光纖數位輸入，精準的 2.0 雙聲道對稱音場，是提升電腦影音與影音娛樂的最佳高 CP 值選擇。" item-url="product_detail/Edifier R1280DB.html" item-rating="4.6">
+                <img src="../assets/img/allproduct/speaker_img/Edifier R1280DB.jpg">
+                <h3>Edifier R1280DB 2.0 聲道藍牙喇叭</h3>
+                <p class="price">$4,190</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.6</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="4690" item-brand="Edifier" item-intro="專為現代微型桌面設計的緊湊型雙聲道喇叭。搭載高效能數位功放與高解析音訊處理，機身雖小卻能爆發出令人驚豔的動態與細膩層次，完美釋放桌面空間。" item-url="product_detail/Edifier M60.html" item-rating="4.1">
+                <img src="../assets/img/allproduct/speaker_img/Edifier M60.jpg">
+                <h3>Edifier M60 2.0 藍牙喇叭</h3>
+                <p class="price">$4,690</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.1</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="4690" item-brand="Edifier" item-intro="致敬經典復古收音機美學，融合高解析 Wi-Fi 串流與 AirPlay 2 規格。雙高音搭配大出力低音單體，大功率完美釋放，讓優雅琴鍵與澎湃音浪同時在空間交織。" item-url="product_detail/Edifier D32.html" item-rating="4.8">
+                <img src="../assets/img/allproduct/speaker_img/Edifier D32.jpg">
+                <h3>Edifier D32 藍牙串流喇叭 </h3>
+                <p class="price">$4,690</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.8</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="5890" item-brand="Edifier" item-intro="採用前衛的 10° 傾角聲學設計，不僅外型剛毅獨特，更能精準修正聲音相位。內建專業 DSP 數位架構並支援重低音輸出，打造影院級的桌上型雙聲道盛宴。" item-url="product_detail/Edifier R1855DB.html" item-rating="4.4">
+                <img src="../assets/img/allproduct/speaker_img/Edifier R1855DB.jpg">
+                <h3>Edifier R1855DB 2.0 聲道藍牙喇叭</h3>
+                <p class="price">$5,890</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.4</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="5990" item-brand="Bose" item-intro="專為冒險而生的極致便攜音響！搭載 Bose 獨家 PositionIQ 技術，無論平放、直立或懸掛都能自動優化音質。堅固耐操的機身與深沉低音，隨時開啟戶外派對。" item-url="product_detail/Bose Soundlink Flex II.html" item-rating="4.7">
+                <img src="../assets/img/allproduct/speaker_img/Bose Soundlink Flex II.jpg">
+                <h3>Bose Soundlink Flex II </h3>
+                <p class="price">$5,990</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.7</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="6490" item-brand="Marshall" item-intro="完美傳承經典搖滾傳奇！搭載 Marshall 獨家 True Stereophonic 搖滾全向性音效，提供 360° 毫無死角的震撼重低音與清脆高音，帶來全天候不間斷的強勁續航。" item-url="product_detail/Marshall EMBERTON III.html" item-rating="5.0">
+                <img src="../assets/img/allproduct/speaker_img/Marshall EMBERTON III.jpg">
+                <h3>Marshall EMBERTON III 攜帶式藍牙喇叭</h3>
+                <p class="price">$6,490</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="starnum">5.0</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="7990" item-brand="Harman Kardon" item-intro="經典圓形美學再進化，搭配一體化鋁合金手把。開啟喇叭便能自動根據環境進行聲學自我校準，讓奢華溫潤的音質與豐沛的中低頻飽滿擴散，完美適配頂級居家美學。" item-url="product_detail/H.K Onyx Studio 9.html" item-rating="4.9">
+                <img src="../assets/img/allproduct/speaker_img/Harman Kardon Onyx Studio 9.jpg">
+                <h3>Harman Kardon Onyx Studio 9 可攜式藍牙喇叭 </h3>
+                <p class="price">$7,990</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.9</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="7990" item-brand="Edifier" item-intro="頂級旗艦代表作！將發燒級的喇叭架構與數位串流技術完美封裝。配備平面振膜高音與高規格鋁合金中低音單體，展現晶瑩剔透的極致細節，重現錄音室現場感動。" item-url="product_detail/Edifier S300.html" item-rating="4.5">
+                <img src="../assets/img/allproduct/speaker_img/Edifier S300.jpg">
+                <h3>Edifier S300 一體式旗艦藍牙串流喇叭 </h3>
+                <p class="price">$7,990</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="starnum">4.5</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="9990" item-brand="Harman Kardon" item-intro="以沉浸式環繞聲場為核心開發，透過精密無線連接架構，建構出無縫銜接的多媒體智慧音響系統，徹底解放音樂邊界。" item-url="product_detail/H.K Enchant Speaker.html" item-rating="4.2">
+                <img src="../assets/img/allproduct/speaker_img/Harman Kardon Enchant Speaker.jpg">
+                <h3>Harman Kardon Enchant Speaker 無線藍牙喇叭 </h3>
+                <p class="price">$9,990</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.2</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="10990" item-brand="Harman Kardon" item-intro="當傳奇透明水母外觀遇上動態藝術燈效！360 度環繞音效結合 5 吋超大下火式重低音，伴隨音樂節奏起伏的漣漪光影，呈現視覺與聽覺雙重感官的極致奢華饗宴。" item-url="product_detail/H.K Aura Studio 5.html" item-rating="5.0">
+                <img src="../assets/img/allproduct/speaker_img/Harman Kardon Aura Studio 5.jpg">
+                <h3>Harman Kardon Aura Studio 5 無線藍牙喇叭 第五代水母喇叭</h3>
+                <p class="price">$10,990</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="starnum">5.0</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+            <div class="card" item-price="3190" item-brand="Bose" item-intro="搭載 IP67 高階防護等級，無懼外在環境侵擾，透過旗艦級聲學組件輸出極具衝擊力的渾厚低音與高解析度立體音場，定義行動聆聽的旗艦標準。" item-url="product_detail/Bose Soundlink Max.html" item-rating="4.0">
+                <img src="../assets/img/allproduct/speaker_img/Bose Soundlink Max.jpg">
+                <h3> Bose SoundLink Max</h3>
+                <p class="price">$3,190</p>
+                <div class="fivestars">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="starnum">4.0</span>
+                </div>
+                <button class="detail">查看詳情</button>
+            </div>
+
+        </div> </main> <div class="productModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <img class="modalImg" src="" alt="商品圖片">
+                <div class="modal-info">
+                    <h2 class="modalName">商品名稱</h2>
+                    <div class="price-rating-group"> 
+                        <p class="modalPrice modal-price">$0</p>
+                        <div class="modalStarsContainer"></div>
+                    </div>
+                    <p class="modalDesc">商品介紹讀取中...</p>
+                    <a href="#" class="go-to-detail-btn" style="color: blue;">查看完整商品頁</a>
+                    <div class="quantity-section">
+                        <label for="quantity">數量：</label>
+                        <input type="number" class="quantity" value="1" min="1">
+                    </div>
+                    <div class="button-group">
+                        <button class="addToCart add-to-cart">加入購物車</button>
+                        <button class="buyNow buy-now">立即購買</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <h3 class="footer-logo">Aura Sound</h3>
+                <p class="brand-slogan">用最純淨的聲音，重塑你的聽覺宇宙。專注於頂級耳機與專業音響系統。</p>
+            </div>
+
+            <div class="footer-column links-col">
+                <h4>商品分類</h4>
+                <ul>
+                    <li><a href="headphones.html">耳罩式耳機</a></li>
+                    <li><a href="speaker.html">藍芽喇叭</a></li>
+                    <li><a href="hometheater.html">家庭劇院組合</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column contact-col">
+                <h4>聯絡我們</h4>
+                <p><i class="fas fa-clock"></i> 服務時間：Mon - Fri 09:00 - 18:00</p>
+                <p><i class="fas fa-envelope"></i> support@aurasound.com</p>
+                <p><i class="fas fa-phone"></i> 02-2345-6789</p>
+                <p><i class="fas fa-map-marker-alt"></i> 台北市信義區音響路 100 號</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Aura Sound Audio Co., Ltd. All Rights Reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">隱私權政策</a> | <a href="#">服務條款</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
